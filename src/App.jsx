@@ -1,11 +1,11 @@
-import Refrigerator from './components/Refrigerator';
+import Login from './components/Login';
 
 function App() {
 
 
   return (
     <div>
-      <Refrigerator />
+      <Login />
     </div>
   )
 }
