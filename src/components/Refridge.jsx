@@ -8,15 +8,15 @@ import "./Refridge.css";
 function AddProductModal({ onClose, onReceipt, onManual, onFileUpload }) {
   const fileInputRef = useRef(null);
 
-  // 파일 업로드 버튼 클릭 시 input 트리거
+  // 버튼 클릭 → input 클릭
   const handleFileButtonClick = () => {
     fileInputRef.current.click();
   };
 
-  // 파일 선택 시 부모로 전달
+  // input에서 파일 선택 시 콜백
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      onFileUpload && onFileUpload(e.target.files[0]);
+      onFileUpload(e.target.files[0]);
     }
   };
 
@@ -58,7 +58,7 @@ function CameraModal({ onClose, onCapture }) {
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
-    onCapture(imageSrc); // 부모로 전달
+    onCapture(imageSrc);
   }, [webcamRef, onCapture]);
 
   return (
@@ -99,6 +99,19 @@ function CameraModal({ onClose, onCapture }) {
       </div>
     </div>
   );
+}
+
+// base64 → Blob 변환 함수
+function base64ToBlob(base64) {
+  const arr = base64.split(",");
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
 }
 
 const initialData = [
@@ -215,13 +228,11 @@ function Refridge() {
 
   const getSortedItems = (items) => {
     if (sort === "최신 순") {
-      // 최신순: createdAt 내림차순
       return [...items].sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
     }
     if (sort === "오래된 순") {
-      // 오래된순: createdAt 오름차순
       return [...items].sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
       );
@@ -238,22 +249,20 @@ function Refridge() {
   // 직접입력 클릭
   const handleManual = () => {
     setShowAddModal(false);
-    navigate("/self"); 
-    console.log("직접입력 클릭");
+    navigate("/self");
   };
 
   // 카메라에서 이미지 캡처
   const handleCapture = async (imgSrc) => {
     setReceiptImg(imgSrc);
 
-    const payload = {
-      image: imgSrc,
-      createdAt: new Date().toISOString(),
-    };
+    // base64 → Blob 변환
+    const blob = base64ToBlob(imgSrc);
+    const formData = new FormData();
+    formData.append("image", blob, "receipt.jpg");
 
     try {
-      const result = await API("/", "post", payload);
-
+      const result = await API("/parse-ingredients", "post", formData);
       alert(
         "영수증 사진이 촬영·전송되었습니다!\n서버 응답: " +
           JSON.stringify(result)
@@ -263,6 +272,23 @@ function Refridge() {
     }
 
     setShowCameraModal(false);
+  };
+
+  // 파일 업로드 핸들러 (input type="file"에서 호출)
+  const handleFileUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file); // 반드시 "image"로
+
+    try {
+      const result = await API("/parse-ingredients", "post", formData);
+      console.log(result);
+      alert(
+        "영수증 파일이 업로드·전송되었습니다!\n서버 응답: " +
+          JSON.stringify(result)
+      );
+    } catch (error) {
+      alert("OCR 서버 전송 실패: " + error.message);
+    }
   };
 
   return (
@@ -309,6 +335,7 @@ function Refridge() {
             onClose={() => setShowAddModal(false)}
             onReceipt={handleReceipt}
             onManual={handleManual}
+            onFileUpload={handleFileUpload}
           />
         )}
         {showCameraModal && (
