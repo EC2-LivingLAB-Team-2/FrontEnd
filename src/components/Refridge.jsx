@@ -88,76 +88,86 @@ function base64ToBlob(base64) {
   return new Blob([arr], { type: mime });
 }
 
+// 더미 데이터(배열의 배열, id 없음)
 const initialData = [
   {
     group: "육류",
     items: [
-      { id: 1, name: "소고기", image: null, createdAt: "2025-05-09T14:30:00Z" },
-      { id: 2, name: "돼지고기", image: null, createdAt: "2025-05-08T09:15:00Z" },
-      { id: 3, name: "닭고기", image: null, createdAt: "2025-05-07T18:00:00Z" },
-      { id: 4, name: "양고기", image: null, createdAt: "2025-05-06T11:00:00Z" },
-      { id: 5, name: "베이컨", image: null, createdAt: "2025-05-05T08:45:00Z" },
-      { id: 6, name: "햄", image: null, createdAt: "2025-05-04T20:10:00Z" },
+      ["소고기", 1, "육류", "2025-05-09T14:30:00Z"],
+      ["돼지고기", 1, "육류", "2025-05-08T09:15:00Z"],
+      ["닭고기", 1, "육류", "2025-05-07T18:00:00Z"],
+      ["양고기", 1, "육류", "2025-05-06T11:00:00Z"],
+      ["베이컨", 1, "육류", "2025-05-05T08:45:00Z"],
+      ["햄", 1, "육류", "2025-05-04T20:10:00Z"],
     ],
   },
   {
     group: "채소",
     items: [
-      { id: 7, name: "양파", image: null, createdAt: "2025-05-09T10:00:00Z" },
-      { id: 8, name: "마늘", image: null, createdAt: "2025-05-08T13:30:00Z" },
-      { id: 9, name: "당근", image: null, createdAt: "2025-05-07T15:20:00Z" },
-      { id: 10, name: "감자", image: null, createdAt: "2025-05-06T17:00:00Z" },
-      { id: 11, name: "파프리카", image: null, createdAt: "2025-05-05T09:00:00Z" },
-      { id: 12, name: "브로콜리", image: null, createdAt: "2025-05-04T19:00:00Z" },
+      ["양파", 1, "채소", "2025-05-09T10:00:00Z"],
+      ["마늘", 1, "채소", "2025-05-08T13:30:00Z"],
+      ["당근", 1, "채소", "2025-05-07T15:20:00Z"],
+      ["감자", 1, "채소", "2025-05-06T17:00:00Z"],
+      ["파프리카", 1, "채소", "2025-05-05T09:00:00Z"],
+      ["브로콜리", 1, "채소", "2025-05-04T19:00:00Z"],
     ],
   },
   {
     group: "과일",
     items: [
-      { id: 13, name: "사과", image: null, createdAt: "2025-05-09T12:00:00Z" },
-      { id: 14, name: "바나나", image: null, createdAt: "2025-05-08T08:00:00Z" },
-      { id: 15, name: "딸기", image: null, createdAt: "2025-05-07T09:30:00Z" },
-      { id: 16, name: "포도", image: null, createdAt: "2025-05-06T16:00:00Z" },
-      { id: 17, name: "오렌지", image: null, createdAt: "2025-05-05T10:10:00Z" },
+      ["사과", 1, "과일", "2025-05-09T12:00:00Z"],
+      ["바나나", 1, "과일", "2025-05-08T08:00:00Z"],
+      ["딸기", 1, "과일", "2025-05-07T09:30:00Z"],
+      ["포도", 1, "과일", "2025-05-06T16:00:00Z"],
+      ["오렌지", 1, "과일", "2025-05-05T10:10:00Z"],
     ],
   },
   {
     group: "유제품",
     items: [
-      { id: 18, name: "우유", image: null, createdAt: "2025-05-09T07:00:00Z" },
-      { id: 19, name: "치즈", image: null, createdAt: "2025-05-08T11:00:00Z" },
-      { id: 20, name: "요거트", image: null, createdAt: "2025-05-07T20:00:00Z" },
-      { id: 21, name: "버터", image: null, createdAt: "2025-05-06T14:00:00Z" },
+      ["우유", 1, "유제품", "2025-05-09T07:00:00Z"],
+      ["치즈", 1, "유제품", "2025-05-08T11:00:00Z"],
+      ["요거트", 1, "유제품", "2025-05-07T20:00:00Z"],
+      ["버터", 1, "유제품", "2025-05-06T14:00:00Z"],
     ],
   },
   {
     group: "음료",
     items: [
-      { id: 22, name: "물", image: null, createdAt: "2025-05-09T08:00:00Z" },
-      { id: 23, name: "주스", image: null, createdAt: "2025-05-08T16:00:00Z" },
-      { id: 24, name: "탄산수", image: null, createdAt: "2025-05-07T21:00:00Z" },
-      { id: 25, name: "커피", image: null, createdAt: "2025-05-06T07:00:00Z" },
-      { id: 26, name: "커피", image: null, createdAt: "2025-05-05T07:00:00Z" },
-      { id: 27, name: "커피", image: null, createdAt: "2025-05-04T07:00:00Z" },
-      { id: 28, name: "커피", image: null, createdAt: "2025-05-03T07:00:00Z" },
-      { id: 29, name: "커피", image: null, createdAt: "2025-05-02T07:00:00Z" },
-      { id: 30, name: "커피", image: null, createdAt: "2025-05-01T07:00:00Z" },
-      { id: 31, name: "커피", image: null, createdAt: "2025-04-30T07:00:00Z" },
-      { id: 32, name: "커피", image: null, createdAt: "2025-04-29T07:00:00Z" },
-      { id: 33, name: "커피", image: null, createdAt: "2025-04-28T07:00:00Z" },
+      ["물", 1, "음료", "2025-05-09T08:00:00Z"],
+      ["주스", 1, "음료", "2025-05-08T16:00:00Z"],
+      ["탄산수", 1, "음료", "2025-05-07T21:00:00Z"],
+      ["커피", 1, "음료", "2025-05-06T07:00:00Z"],
     ],
   },
 ];
 
 const sortOptions = ["최신 순", "오래된 순"];
 
+// OCR 결과를 기존 데이터에 추가(병합)
+function mergeInitialData(oldData, newResult) {
+  // 그룹별로 items를 합침
+  const groupMap = {};
+  oldData.forEach(groupObj => {
+    groupMap[groupObj.group] = [...groupObj.items];
+  });
+  newResult.forEach(arr => {
+    const category = arr[2];
+    if (groupMap[category]) {
+      groupMap[category].push(arr);
+    } else {
+      groupMap[category] = [arr];
+    }
+  });
+  return Object.entries(groupMap).map(([group, items]) => ({ group, items }));
+}
+
 function Refridge() {
   const navigate = useNavigate();
   const [sort, setSort] = useState(sortOptions[0]);
-  const [data] = useState(initialData);
+  const [data, setData] = useState(initialData);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showCameraModal, setShowCameraModal] = useState(false);
-  const [receiptImg, setReceiptImg] = useState(null);
 
   const getSortedGroups = () => {
     if (sort === "최신 순") return [...data].reverse();
@@ -166,9 +176,9 @@ function Refridge() {
 
   const getSortedItems = (items) => {
     if (sort === "최신 순")
-      return [...items].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      return [...items].sort((a, b) => new Date(b[3]) - new Date(a[3]));
     if (sort === "오래된 순")
-      return [...items].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      return [...items].sort((a, b) => new Date(a[3]) - new Date(b[3]));
     return items;
   };
 
@@ -182,14 +192,20 @@ function Refridge() {
     navigate("/self");
   };
 
+  // OCR 결과를 기존 데이터에 추가
+  const handleOcrResult = (resultArray) => {
+    setData(prevData => mergeInitialData(prevData, resultArray));
+  };
+
   const handleCapture = async (imgSrc) => {
-    setReceiptImg(imgSrc);
     const blob = base64ToBlob(imgSrc);
     const formData = new FormData();
     formData.append("image", blob, "receipt.jpg");
     try {
       const result = await API("/parse-ingredients", "post", formData);
-      console.log(result);
+      if (result?.data?.data?.result) {
+        handleOcrResult(result.data.data.result);
+      }
       alert("영수증 사진이 촬영·전송되었습니다!\n서버 응답: " + JSON.stringify(result));
     } catch (error) {
       alert("OCR 서버 전송 실패: " + error.message);
@@ -206,6 +222,9 @@ function Refridge() {
     formData.append("image", file);
     try {
       const result = await API("/parse-ingredients", "post", formData);
+      if (result?.data?.data?.result) {
+        handleOcrResult(result.data.data.result);
+      }
       alert("영수증 파일이 업로드·전송되었습니다!\n서버 응답: " + JSON.stringify(result));
     } catch (error) {
       alert("OCR 서버 전송 실패: " + error.message);
@@ -238,10 +257,9 @@ function Refridge() {
             <section className="fridge-section" key={group.group}>
               <div className="fridge-group-title">{group.group}</div>
               <div className="fridge-items-box">
-                {getSortedItems(group.items).map(item => (
-                  <div className="fridge-item" key={item.id}>
-                    <div className="fridge-thumb" />
-                    <div className="fridge-name">{item.name}</div>
+                {getSortedItems(group.items).map(([name], idx) => (
+                  <div className="fridge-item" key={name + idx}>
+                    <div className="fridge-name">{name}</div>
                   </div>
                 ))}
               </div>
