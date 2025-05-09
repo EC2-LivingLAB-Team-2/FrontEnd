@@ -1,5 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
+import { useNavigate } from "react-router-dom";
+import API from "./API/api.js";
 import "./Refridge.css";
 
 // 상품추가 모달
@@ -104,7 +106,12 @@ const initialData = [
     group: "육류",
     items: [
       { id: 1, name: "소고기", image: null, createdAt: "2025-05-09T14:30:00Z" },
-      { id: 2, name: "돼지고기", image: null, createdAt: "2025-05-08T09:15:00Z" },
+      {
+        id: 2,
+        name: "돼지고기",
+        image: null,
+        createdAt: "2025-05-08T09:15:00Z",
+      },
       { id: 3, name: "닭고기", image: null, createdAt: "2025-05-07T18:00:00Z" },
       { id: 4, name: "양고기", image: null, createdAt: "2025-05-06T11:00:00Z" },
       { id: 5, name: "베이컨", image: null, createdAt: "2025-05-05T08:45:00Z" },
@@ -118,18 +125,38 @@ const initialData = [
       { id: 8, name: "마늘", image: null, createdAt: "2025-05-08T13:30:00Z" },
       { id: 9, name: "당근", image: null, createdAt: "2025-05-07T15:20:00Z" },
       { id: 10, name: "감자", image: null, createdAt: "2025-05-06T17:00:00Z" },
-      { id: 11, name: "파프리카", image: null, createdAt: "2025-05-05T09:00:00Z" },
-      { id: 12, name: "브로콜리", image: null, createdAt: "2025-05-04T19:00:00Z" },
+      {
+        id: 11,
+        name: "파프리카",
+        image: null,
+        createdAt: "2025-05-05T09:00:00Z",
+      },
+      {
+        id: 12,
+        name: "브로콜리",
+        image: null,
+        createdAt: "2025-05-04T19:00:00Z",
+      },
     ],
   },
   {
     group: "과일",
     items: [
       { id: 13, name: "사과", image: null, createdAt: "2025-05-09T12:00:00Z" },
-      { id: 14, name: "바나나", image: null, createdAt: "2025-05-08T08:00:00Z" },
+      {
+        id: 14,
+        name: "바나나",
+        image: null,
+        createdAt: "2025-05-08T08:00:00Z",
+      },
       { id: 15, name: "딸기", image: null, createdAt: "2025-05-07T09:30:00Z" },
       { id: 16, name: "포도", image: null, createdAt: "2025-05-06T16:00:00Z" },
-      { id: 17, name: "오렌지", image: null, createdAt: "2025-05-05T10:10:00Z" },
+      {
+        id: 17,
+        name: "오렌지",
+        image: null,
+        createdAt: "2025-05-05T10:10:00Z",
+      },
     ],
   },
   {
@@ -137,7 +164,12 @@ const initialData = [
     items: [
       { id: 18, name: "우유", image: null, createdAt: "2025-05-09T07:00:00Z" },
       { id: 19, name: "치즈", image: null, createdAt: "2025-05-08T11:00:00Z" },
-      { id: 20, name: "요거트", image: null, createdAt: "2025-05-07T20:00:00Z" },
+      {
+        id: 20,
+        name: "요거트",
+        image: null,
+        createdAt: "2025-05-07T20:00:00Z",
+      },
       { id: 21, name: "버터", image: null, createdAt: "2025-05-06T14:00:00Z" },
     ],
   },
@@ -146,7 +178,12 @@ const initialData = [
     items: [
       { id: 22, name: "물", image: null, createdAt: "2025-05-09T08:00:00Z" },
       { id: 23, name: "주스", image: null, createdAt: "2025-05-08T16:00:00Z" },
-      { id: 24, name: "탄산수", image: null, createdAt: "2025-05-07T21:00:00Z" },
+      {
+        id: 24,
+        name: "탄산수",
+        image: null,
+        createdAt: "2025-05-07T21:00:00Z",
+      },
       { id: 25, name: "커피", image: null, createdAt: "2025-05-06T07:00:00Z" },
       { id: 26, name: "커피", image: null, createdAt: "2025-05-05T07:00:00Z" },
       { id: 27, name: "커피", image: null, createdAt: "2025-05-04T07:00:00Z" },
@@ -160,10 +197,10 @@ const initialData = [
   },
 ];
 
-
 const sortOptions = ["최신 순", "오래된 순"];
 
 function Refridge() {
+  const navigate = useNavigate();
   const [sort, setSort] = useState(sortOptions[0]);
   const [data] = useState(initialData);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -201,14 +238,30 @@ function Refridge() {
   // 직접입력 클릭
   const handleManual = () => {
     setShowAddModal(false);
-    alert("직접입력 기능을 구현하세요!");
+    navigate("/self"); 
+    console.log("직접입력 클릭");
   };
 
   // 카메라에서 이미지 캡처
-  const handleCapture = (imgSrc) => {
+  const handleCapture = async (imgSrc) => {
     setReceiptImg(imgSrc);
-    // imgSrc를 OCR 서버로 전송하는 로직을 여기에 추가하면 됩니다.
-    alert("영수증 사진이 촬영되었습니다! (OCR 연동 가능)");
+
+    const payload = {
+      image: imgSrc,
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      const result = await API("/", "post", payload);
+
+      alert(
+        "영수증 사진이 촬영·전송되었습니다!\n서버 응답: " +
+          JSON.stringify(result)
+      );
+    } catch (error) {
+      alert("OCR 서버 전송 실패: " + error.message);
+    }
+
     setShowCameraModal(false);
   };
 
