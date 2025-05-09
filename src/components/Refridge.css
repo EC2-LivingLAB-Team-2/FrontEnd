@@ -1,0 +1,179 @@
+.fridge-bg {
+  width: 100vw;
+  height: 100vh;
+  /* background: linear-gradient(135deg, #dbe6f6, #c5796d 100%); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fridge-frame {
+  width: 90vw;
+  max-width: 1200px;
+  background: #eaf3fb;
+  border-radius: 20px;
+  box-shadow: 0 0 0 8px #dde3ef, 0 2px 16px #b5b8c5;
+  padding: 32px 32px 40px 32px;
+  box-sizing: border-box;
+}
+
+.fridge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.fridge-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.fridge-top-btn {
+  width: 180px;
+  height: 48px;
+  background: #e3e6eb;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #222;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.fridge-top-btn:hover {
+  background: #d1d1e0;
+}
+
+.fridge-main {
+  background: linear-gradient(120deg, #fafdff 80%, #e6f0fa 100%);
+  border-radius: 24px;
+  padding: 32px 32px 32px 32px;
+  position: relative;
+}
+
+.fridge-sort-box {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+}
+
+.fridge-sort-select {
+  font-size: 1.1rem;
+  padding: 6px 18px;
+  border-radius: 6px;
+  border: 1.5px solid #222;
+  background: #fff;
+  font-weight: 500;
+}
+
+.fridge-section {
+  margin-bottom: 48px;
+}
+
+.fridge-group-title {
+  font-size: 1.18rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-left: 8px;
+}
+
+.fridge-items-box {
+  display: flex;
+  gap: 36px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1.5px solid #bdbdbd;
+  padding: 28px 20px 16px 20px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  align-items: flex-start;
+}
+
+.fridge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 110px;
+}
+
+.fridge-thumb {
+  width: 78px;
+  height: 78px;
+  background: #d3d3d3;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.fridge-name {
+  font-size: 1rem;
+  color: #222;
+  text-align: center;
+}
+
+/* 모달 스타일 */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 18px;
+  padding: 36px 32px 24px 32px;
+  box-shadow: 0 8px 32px rgba(80,80,120,0.18);
+  text-align: center;
+  min-width: 320px;
+}
+
+.modal-btn-group {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.modal-btn {
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  background: #e3e6eb;
+  color: #222;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.modal-btn:hover {
+  background: #d1d1e0;
+}
+
+.modal-close-btn {
+  margin-top: 8px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.modal-close-btn:hover {
+  color: #555;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 18px;
+  padding: 36px 32px 24px 32px;
+  box-shadow: 0 8px 32px rgba(80,80,120,0.18);
+  text-align: center;
+  min-width: 320px;
+  overflow: visible;
+}

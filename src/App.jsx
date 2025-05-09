@@ -1,13 +1,13 @@
-import Login from './components/Login';
+import Login from "./components/Login";
+import Refridge from "./components/Refridge";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
-
-
   return (
-    <div>
-      <Login />
-    </div>
-  )
+    <BrowserRouter>
+      <Refridge />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
