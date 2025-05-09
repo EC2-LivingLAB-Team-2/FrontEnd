@@ -1,42 +1,152 @@
+/* 전체 페이지 설정 */
+html, body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;                 /* ✅ Flexbox 사용 */
+  justify-content: center;      /* ✅ 가로 중앙 */
+  align-items: center;          /* ✅ 세로 중앙 */
+  background-color: #D2E6EC; /* 보라색 배경 */}
+
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  height: 80%;
+  width: 70%;
+  margin-right: 10%;
+  
+  
+}
+
+/* 앱 전체: 헤더 + 콘텐츠 */
+.app {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 헤더 */
+.header {
+  background: linear-gradient(180deg, #f4f4f4 0%, #f5f5f5 100%);  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.2rem;
+  color: black;
+  margin-bottom: 1rem;
+  margin-left : 2rem;
+  margin-right : 2rem;
+  border: 1px solid #ccc;
+}
+
+
+
+/* 카드 목록 */
+.card-container {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #f4f4f4 0%, #f5f5f5 100%);
+  margin-bottom: 1rem;
+  margin-left : 2rem;
+  margin-right : 2rem;
+  border: 1px solid #ccc;
+}
+
+/* 카드 하나 */
+.recommendation-card {
+  display: flex;
+  background-color: #e5e7eb;
+  margin-bottom: 1rem;
+  margin-left : 2rem;
+  margin-right : 2rem;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 60px;
+  width: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.recommendation-card .id {
+  background-color: #d1d5db;
+  color: black;
+  padding: 1rem;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.recommendation-card .info {
+  flex-grow: 1;
+  padding: 0.8rem;
+  display: flex;
+  color: black;
   text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f3f4f6;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.recommendation-card .action {
+  background-color: #e5e7eb;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card-recipe-wrapper {
+  display: flex;
+  align-items: flex-start;
+  margin: 1rem 2rem;
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.recommendation-card {
+  flex: 0 0 30%;
+  width: 30%;
+  height: 60px;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  display: flex;
+  overflow: hidden;
+  background-color: #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.card {
-  padding: 2em;
+.recipe-box {
+  flex: 1;
+  min-width: 0;
+
+  background-color: white;
+  color: black;
+  padding: 1rem;
+  margin-left: 1rem;
+  border-radius: 12px;
+
+  max-height: 300px;        /* ✅ 레시피 내용 박스 제한 */
+  overflow-y: auto;         /* ✅ 스크롤이 필요한 경우만 스크롤 표시 */
+  overflow-x: hidden;
+
+  display: flex;            /* ✅ 내부 스크롤 텍스트 정렬 */
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.read-the-docs {
-  color: #888;
+.recipe-text {
+  white-space: normal;     /* pre-wrap 제거! 이제 줄마다 <div>니까 */
+  word-break: break-word;
+  line-height: 1.6;
 }
+
+
+
+
+
+
+
+
+
