@@ -19,6 +19,7 @@ async function API(endpoint, method, body = null, withCredentials = true) {
       data: body,
       headers,
       withCredentials,
+      timeout: 20000,
     });
     return response.data;
   } catch (error) {
