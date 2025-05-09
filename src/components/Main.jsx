@@ -44,7 +44,7 @@ function Main() {
     };
 
     // ✅ API 요청
-    fetch('https://9bbb-1-216-24-221.ngrok-free.app/api/v1/recommend-recipe', {
+    fetch('https://3ab9-1-216-24-221.ngrok-free.app/api/v1/recommend-recipe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

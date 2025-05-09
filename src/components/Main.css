@@ -1,0 +1,251 @@
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px; /* 버튼을 가장자리에서 더 떨어지도록 조정 */
+  background-color: transparent; /* 배경 제거 */
+  box-shadow: none; /* 그림자 제거 */
+}
+
+.title {
+  font-size: 28px; /* 제목 크기 약간 증가 */
+  font-weight: bold;
+  color: black; /* 제목을 검정색으로 설정 */
+}
+
+.back-button,
+.register-button {
+  background-color: #f7e9e4;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #776a77; /* 버튼 텍스트를 검정색으로 설정 */
+}
+
+.App-container {
+  flex: 1;
+  display: flex;
+  align-items: center; /* 본문을 화면 중앙에 배치 */
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px; /* 제목과 본문 사이 간격을 줄임 */
+}
+
+.App-main {
+  width: 90%; /* 본문 박스 크기 */
+  max-width: 1100px; /* 최대 크기 */
+  height: 600px; /* 고정된 높이 설정 */
+  background: linear-gradient(180deg, #f4f4f4 0%, #f5f5f5 100%);
+  border-radius: 15px; /* 박스 모서리 둥글게 */
+  padding: 20px; /* 내부 여백 */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* 그림자 강조 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+}
+
+.product-form {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 수평 가운데 정렬 */
+  gap: 20px; /* 간격을 조금 더 넓게 */
+  margin-bottom: 30px;
+  color: black; /* 폼 내부 텍스트를 검정색으로 설정 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.product-image img {
+  display: block; /* 이미지를 블록 요소로 설정 */
+  margin: 0 auto; /* 이미지를 수평 가운데 정렬 */
+  width: 100px; /* 이미지 너비를 100px로 설정 */
+  height: 100px; /* 이미지 높이를 100px로 설정 */
+  border-radius: 10px; /* 이미지 모서리를 둥글게 유지 */
+}
+
+.product-name-input {
+  color: white; /* '상품명 추가' 텍스트는 하얀색 유지 */
+}
+
+.category-select {
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1;
+  color: black; /* 드롭다운 텍스트를 검정색으로 설정 */
+}
+
+.add-button {
+  background-color: #c5e1de;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: black; /* 버튼 텍스트를 검정색으로 설정 */
+}
+
+.product-name-input,
+.category-select {
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1;
+  color: black; /* 텍스트를 검정색으로 설정 */
+  background-color: white; /* 배경색을 흰색으로 설정 */
+  width: 100%; /* 입력 필드와 드롭다운의 너비를 동일하게 설정 */
+  max-width: 300px; /* 최대 너비를 동일하게 설정 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
+  text-align: center; /* 입력 필드와 드롭다운 텍스트 가운데 정렬 */
+}
+
+/* 전체 페이지 설정 */
+html, body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;                 /* ✅ Flexbox 사용 */
+  justify-content: center;      /* ✅ 가로 중앙 */
+  align-items: center;          /* ✅ 세로 중앙 */
+  background-color: #D2E6EC; /* 보라색 배경 */}
+
+
+#root {
+  height: 80%;
+  width: 70%;
+  margin-right: 10%;
+  
+  
+}
+
+/* 앱 전체: 헤더 + 콘텐츠 */
+.app {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 헤더 */
+.header {
+  background: linear-gradient(180deg, #f4f4f4 0%, #f5f5f5 100%);  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.2rem;
+  color: black;
+  margin-bottom: 1rem;
+  margin-left : 2rem;
+  margin-right : 2rem;
+  border: 1px solid #ccc;
+}
+
+
+
+/* 카드 목록 */
+.card-container {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #f4f4f4 0%, #f5f5f5 100%);
+  margin-bottom: 1rem;
+  margin-left : 2rem;
+  margin-right : 2rem;
+  border: 1px solid #ccc;
+}
+
+/* 카드 하나 */
+.recommendation-card {
+  display: flex;
+  background-color: #e5e7eb;
+  margin-bottom: 1rem;
+  margin-left : 2rem;
+  margin-right : 2rem;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 60px;
+  width: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.recommendation-card .id {
+  background-color: #d1d5db;
+  color: black;
+  padding: 1rem;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.recommendation-card .info {
+  flex-grow: 1;
+  padding: 0.8rem;
+  display: flex;
+  color: black;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f3f4f6;
+}
+
+.recommendation-card .action {
+  background-color: #e5e7eb;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.card-recipe-wrapper {
+  display: flex;
+  align-items: flex-start;
+  margin: 1rem 2rem;
+  width: 100%;
+}
+
+.recommendation-card {
+  flex: 0 0 30%;
+  width: 30%;
+  height: 60px;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  display: flex;
+  overflow: hidden;
+  background-color: #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.recipe-box {
+  flex: 1;
+  min-width: 0;
+
+  background-color: white;
+  color: black;
+  padding: 1rem;
+  margin-left: 1rem;
+  border-radius: 12px;
+
+  max-height: 300px;        /* ✅ 레시피 내용 박스 제한 */
+  overflow-y: auto;         /* ✅ 스크롤이 필요한 경우만 스크롤 표시 */
+  overflow-x: hidden;
+
+  display: flex;            /* ✅ 내부 스크롤 텍스트 정렬 */
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.recipe-text {
+  white-space: normal;     /* pre-wrap 제거! 이제 줄마다 <div>니까 */
+  word-break: break-word;
+  line-height: 1.6;
+}
+
