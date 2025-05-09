@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import './FoodAdd.css';
-import meatImage from './assets/img/meat.png';
-import seafoodImage from './assets/img/seafood.png';
-import beverageImage from './assets/img/beverage.png';
-import fruitImage from './assets/img/fruit.png';
-import vegetableImage from './assets/img/vegetable.png';
-import dairyImage from './assets/img/milk.png';
-import grainImage from './assets/img/rice.png';
-import condimentImage from './assets/img/sauce.png';
-import frozenImage from './assets/img/letitgo.png';
-import snackImage from './assets/img/snack.png';
-import bakeryImage from './assets/img/bread.png';
-import babyFoodImage from './assets/img/baby.png';
+import meatImage from './../assets/img/meat.png';
+import seafoodImage from './../assets/img/seafood.png';
+import beverageImage from './../assets/img/beverage.png';
+import fruitImage from './../assets/img/fruit.png';
+import vegetableImage from './../assets/img/vegetable.png';
+import dairyImage from './../assets/img/milk.png';
+import grainImage from './../assets/img/rice.png';
+import condimentImage from './../assets/img/sauce.png';
+import frozenImage from './../assets/img/letitgo.png';
+import snackImage from './../assets/img/snack.png';
+import bakeryImage from './../assets/img/bread.png';
+import babyFoodImage from './../assets/img/baby.png';
 
 function FoodAdd() {
   const [fields, setFields] = useState([
