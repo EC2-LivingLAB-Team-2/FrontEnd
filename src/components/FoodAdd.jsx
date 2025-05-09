@@ -1,25 +1,32 @@
-import React, { useState } from 'react';
-import './FoodAdd.css';
-import meatImage from './../assets/img/meat.png';
-import seafoodImage from './../assets/img/seafood.png';
-import beverageImage from './../assets/img/beverage.png';
-import fruitImage from './../assets/img/fruit.png';
-import vegetableImage from './../assets/img/vegetable.png';
-import dairyImage from './../assets/img/milk.png';
-import grainImage from './../assets/img/rice.png';
-import condimentImage from './../assets/img/sauce.png';
-import frozenImage from './../assets/img/letitgo.png';
-import snackImage from './../assets/img/snack.png';
-import bakeryImage from './../assets/img/bread.png';
-import babyFoodImage from './../assets/img/baby.png';
+import React, { useState } from "react";
+import "./FoodAdd.css";
+import meatImage from "./../assets/img/meat.png";
+import seafoodImage from "./../assets/img/seafood.png";
+import beverageImage from "./../assets/img/beverage.png";
+import fruitImage from "./../assets/img/fruit.png";
+import vegetableImage from "./../assets/img/vegetable.png";
+import dairyImage from "./../assets/img/milk.png";
+import grainImage from "./../assets/img/rice.png";
+import condimentImage from "./../assets/img/sauce.png";
+import frozenImage from "./../assets/img/letitgo.png";
+import snackImage from "./../assets/img/snack.png";
+import bakeryImage from "./../assets/img/bread.png";
+import babyFoodImage from "./../assets/img/baby.png";
+import { useNavigate } from "react-router-dom";
 
 function FoodAdd() {
+  const navigate = useNavigate();
   const [fields, setFields] = useState([
-    { id: 1, productName: '', category: '', image: meatImage },
+    { id: 1, productName: "", category: "", image: meatImage },
   ]);
 
   const handleAddField = () => {
-    const newField = { id: fields.length + 1, productName: '', category: '', image: meatImage };
+    const newField = {
+      id: fields.length + 1,
+      productName: "",
+      category: "",
+      image: meatImage,
+    };
     setFields([...fields, newField]);
   };
 
@@ -27,42 +34,46 @@ function FoodAdd() {
     setFields(fields.filter((field) => field.id !== id));
   };
 
+  const openMenu = () => {
+    navigate("/");
+  };
+
   const handleCategoryChange = (id, category) => {
     const updatedFields = fields.map((field) => {
       if (field.id === id) {
         let newImage = meatImage; // 기본 이미지
         switch (category) {
-          case 'category2':
+          case "category2":
             newImage = seafoodImage;
             break;
-          case 'category3':
+          case "category3":
             newImage = beverageImage;
             break;
-          case 'category4':
+          case "category4":
             newImage = fruitImage;
             break;
-          case 'category5':
+          case "category5":
             newImage = vegetableImage;
             break;
-          case 'category6':
+          case "category6":
             newImage = dairyImage;
             break;
-          case 'category7':
+          case "category7":
             newImage = grainImage;
             break;
-          case 'category8':
+          case "category8":
             newImage = condimentImage;
             break;
-          case 'category9':
+          case "category9":
             newImage = frozenImage;
             break;
-          case 'category10':
+          case "category10":
             newImage = snackImage;
             break;
-          case 'category11':
+          case "category11":
             newImage = bakeryImage;
             break;
-          case 'category12':
+          case "category12":
             newImage = babyFoodImage;
             break;
           default:
@@ -78,7 +89,9 @@ function FoodAdd() {
   return (
     <div className="App">
       <div className="App-top">
-        <button className="back-button">돌아가기</button>
+        <button className="back-button" onClick={openMenu}>
+          돌아가기
+        </button>
         <h1 className="title">상품 추가</h1>
         <button className="register-button">등록</button>
       </div>

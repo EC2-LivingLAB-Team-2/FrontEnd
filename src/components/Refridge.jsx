@@ -2,7 +2,89 @@ import React, { useState, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import API from "./API/api.js";
+import meatImage from "./../assets/img/meat.png";
+import seafoodImage from "./../assets/img/seafood.png";
+import beverageImage from "./../assets/img/beverage.png";
+import fruitImage from "./../assets/img/fruit.png";
+import vegetableImage from "./../assets/img/vegetable.png";
+import dairyImage from "./../assets/img/milk.png";
+import grainImage from "./../assets/img/rice.png";
+import condimentImage from "./../assets/img/sauce.png";
+import frozenImage from "./../assets/img/letitgo.png";
+import snackImage from "./../assets/img/snack.png";
+import bakeryImage from "./../assets/img/bread.png";
+import babyFoodImage from "./../assets/img/baby.png";
 import "./Refridge.css";
+
+// 카테고리별 이미지 매핑
+const categoryImages = {
+  육류: meatImage,
+  해산물: seafoodImage,
+  음료: beverageImage,
+  과일: fruitImage,
+  채소: vegetableImage,
+  유제품: dairyImage,
+  곡류: grainImage,
+  조미료: condimentImage,
+  냉동식품: frozenImage,
+  간식: snackImage,
+  베이커리: bakeryImage,
+  이유식: babyFoodImage,
+};
+// 회색 원(기본 이미지 대체)
+function GrayCircle() {
+  return (
+    <div
+      style={{
+        width: 60,
+        height: 60,
+        borderRadius: "50%",
+        background: "#e0e0e0",
+        marginBottom: 8,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    />
+  );
+}
+
+// 로딩 스피너
+function Spinner() {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        left: 0,
+        top: 0,
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "rgba(255,255,255,0.6)",
+        zIndex: 9999,
+      }}
+    >
+      <div
+        style={{
+          width: 64,
+          height: 64,
+          border: "8px solid #eee",
+          borderTop: "8px solid #3498db",
+          borderRadius: "50%",
+          animation: "spin 1s linear infinite",
+        }}
+      />
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg);}
+          100% { transform: rotate(360deg);}
+        }
+      `}</style>
+    </div>
+  );
+}
 
 // 상품추가 모달
 function AddProductModal({ onClose, onReceipt, onManual, onFileUpload }) {
@@ -17,12 +99,18 @@ function AddProductModal({ onClose, onReceipt, onManual, onFileUpload }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>상품 추가 방법 선택</h2>
         <div className="modal-btn-group">
-          <button className="modal-btn" onClick={onReceipt}>영수증 인식</button>
-          <button className="modal-btn" onClick={handleFileButtonClick}>영수증 파일 업로드</button>
-          <button className="modal-btn" onClick={onManual}>직접입력</button>
+          <button className="modal-btn" onClick={onReceipt}>
+            영수증 인식
+          </button>
+          <button className="modal-btn" onClick={handleFileButtonClick}>
+            영수증 파일 업로드
+          </button>
+          <button className="modal-btn" onClick={onManual}>
+            직접입력
+          </button>
           <input
             ref={fileInputRef}
             type="file"
@@ -31,7 +119,9 @@ function AddProductModal({ onClose, onReceipt, onManual, onFileUpload }) {
             onChange={handleFileChange}
           />
         </div>
-        <button className="modal-close-btn" onClick={onClose}>닫기</button>
+        <button className="modal-close-btn" onClick={onClose}>
+          닫기
+        </button>
       </div>
     </div>
   );
@@ -50,11 +140,15 @@ function CameraModal({ onClose, onCapture }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>영수증 촬영</h2>
         <div style={{ marginBottom: 16 }}>
           {imgSrc ? (
-            <img src={imgSrc} alt="captured" style={{ width: 320, borderRadius: 8 }} />
+            <img
+              src={imgSrc}
+              alt="captured"
+              style={{ width: 320, borderRadius: 8 }}
+            />
           ) : (
             <Webcam
               audio={false}
@@ -67,11 +161,17 @@ function CameraModal({ onClose, onCapture }) {
         </div>
         <div className="modal-btn-group">
           {!imgSrc ? (
-            <button className="modal-btn" onClick={capture}>촬영</button>
+            <button className="modal-btn" onClick={capture}>
+              촬영
+            </button>
           ) : (
-            <button className="modal-btn" onClick={() => setImgSrc(null)}>다시찍기</button>
+            <button className="modal-btn" onClick={() => setImgSrc(null)}>
+              다시찍기
+            </button>
           )}
-          <button className="modal-btn" onClick={onClose}>닫기</button>
+          <button className="modal-btn" onClick={onClose}>
+            닫기
+          </button>
         </div>
       </div>
     </div>
@@ -88,7 +188,7 @@ function base64ToBlob(base64) {
   return new Blob([arr], { type: mime });
 }
 
-// 더미 데이터(배열의 배열, id 없음)
+// 더미 데이터 (4개 값만)
 const initialData = [
   {
     group: "육류",
@@ -144,14 +244,18 @@ const initialData = [
 
 const sortOptions = ["최신 순", "오래된 순"];
 
-// OCR 결과를 기존 데이터에 추가(병합)
+// 데이터 병합
 function mergeInitialData(oldData, newResult) {
-  // 그룹별로 items를 합침
+  const newResultWithImg = newResult.map((arr) =>
+    arr.length === 5 ? arr : [...arr, undefined]
+  );
   const groupMap = {};
-  oldData.forEach(groupObj => {
-    groupMap[groupObj.group] = [...groupObj.items];
+  oldData.forEach((groupObj) => {
+    groupMap[groupObj.group] = groupObj.items.map((item) =>
+      item.length === 5 ? item : [...item, undefined]
+    );
   });
-  newResult.forEach(arr => {
+  newResultWithImg.forEach((arr) => {
     const category = arr[2];
     if (groupMap[category]) {
       groupMap[category].push(arr);
@@ -168,6 +272,7 @@ function Refridge() {
   const [data, setData] = useState(initialData);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showCameraModal, setShowCameraModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getSortedGroups = () => {
     if (sort === "최신 순") return [...data].reverse();
@@ -189,79 +294,135 @@ function Refridge() {
 
   const handleManual = () => {
     setShowAddModal(false);
-    navigate("/self");
+    navigate("/food");
+  };
+
+  const openRecipt = () => {
+    navigate("/recipt");
   };
 
   // OCR 결과를 기존 데이터에 추가
   const handleOcrResult = (resultArray) => {
-    setData(prevData => mergeInitialData(prevData, resultArray));
+    setData((prevData) => mergeInitialData(prevData, resultArray));
   };
 
-  const handleCapture = async (imgSrc) => {
-    const blob = base64ToBlob(imgSrc);
-    const formData = new FormData();
-    formData.append("image", blob, "receipt.jpg");
-    try {
-      const result = await API("/parse-ingredients", "post", formData);
-      if (result?.data?.data?.result) {
-        handleOcrResult(result.data.data.result);
-      }
-      alert("영수증 사진이 촬영·전송되었습니다!\n서버 응답: " + JSON.stringify(result));
-    } catch (error) {
-      alert("OCR 서버 전송 실패: " + error.message);
-    }
-    setShowCameraModal(false);
-  };
-
+  // 파일 업로드 후 알람 뜬 뒤 result를 더미 데이터에 추가
   const handleFileUpload = async (file) => {
     if (!file) {
       alert("파일이 선택되지 않았습니다.");
       return;
     }
+    setLoading(true);
     const formData = new FormData();
     formData.append("image", file);
     try {
+      //서버에서 받은 result를 사용
       const result = await API("/parse-ingredients", "post", formData);
       if (result?.data?.data?.result) {
         handleOcrResult(result.data.data.result);
       }
-      alert("영수증 파일이 업로드·전송되었습니다!\n서버 응답: " + JSON.stringify(result));
+      alert("파일이 업로드되었습니다!");
+      //서버에서 받은 데이터
     } catch (error) {
       alert("OCR 서버 전송 실패: " + error.message);
     }
+    setLoading(false);
+  };
+
+  const handleCapture = async (imgSrc) => {
+    setLoading(true);
+    const blob = base64ToBlob(imgSrc);
+    const formData = new FormData();
+    formData.append("image", blob, "receipt.jpg");
+    try {
+      // 서버에서 받은 result를 사용
+      const result = await API("/parse-ingredients", "post", formData);
+      if (result?.data?.data?.result) {
+        handleOcrResult(result.data.data.result);
+      }
+      alert("영수증 사진이 촬영·전송되었습니다!");
+    } catch (error) {
+      alert("OCR 서버 전송 실패: " + error.message);
+    }
+    setLoading(false);
+    setShowCameraModal(false);
   };
 
   return (
     <div className="fridge-bg">
+      {loading && <Spinner />}
       <div className="fridge-frame">
         <header className="fridge-header">
-          <button className="fridge-top-btn" onClick={() => setShowAddModal(true)}>
+          <button
+            className="fridge-top-btn"
+            onClick={() => setShowAddModal(true)}
+          >
             상품 추가
           </button>
           <h1 className="fridge-title">냉장고</h1>
-          <button className="fridge-top-btn">레시피 추천</button>
+          <button className="fridge-top-btn" onClick={openRecipt}>
+            레시피 추천
+          </button>
         </header>
         <main className="fridge-main">
           <div className="fridge-sort-box">
             <select
               className="fridge-sort-select"
               value={sort}
-              onChange={e => setSort(e.target.value)}
+              onChange={(e) => setSort(e.target.value)}
             >
-              {sortOptions.map(opt => (
+              {sortOptions.map((opt) => (
                 <option key={opt}>{opt}</option>
               ))}
             </select>
           </div>
-          {getSortedGroups().map(group => (
+          {getSortedGroups().map((group) => (
             <section className="fridge-section" key={group.group}>
               <div className="fridge-group-title">{group.group}</div>
               <div className="fridge-items-box">
-                {getSortedItems(group.items).map(([name], idx) => (
-                  <div className="fridge-item" key={name + idx}>
-                    <div className="fridge-name">{name}</div>
-                  </div>
-                ))}
+                {getSortedItems(group.items).map(
+                  ([name, , category, , image], idx) => (
+                    <div
+                      className="fridge-item"
+                      key={name + idx}
+                      style={{
+                        background: "#fff",
+                        borderRadius: 16,
+                        boxShadow: "0 2px 8px #eee",
+                        padding: 12,
+                        margin: 8,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        minWidth: 90,
+                      }}
+                    >
+                      {image || categoryImages[category] ? (
+                        <img
+                          src={image || categoryImages[category]}
+                          alt={name}
+                          style={{
+                            width: 60,
+                            height: 60,
+                            objectFit: "cover",
+                            borderRadius: "50%",
+                            marginBottom: 8,
+                            border: "2px solid #e0e0e0",
+                            background: "#fafafa",
+                          }}
+                        />
+                      ) : (
+                        <GrayCircle />
+                      )}
+                      <div
+                        className="fridge-name"
+                        style={{ fontWeight: 500, fontSize: 16, color: "#333" }}
+                      >
+                        {name}
+                      </div>
+                    </div>
+                  )
+                )}
               </div>
             </section>
           ))}
@@ -269,8 +430,11 @@ function Refridge() {
         {showAddModal && (
           <AddProductModal
             onClose={() => setShowAddModal(false)}
-            onReceipt={handleReceipt}
-            onManual={handleManual}
+            onReceipt={() => setShowAddModal(false) || setShowCameraModal(true)}
+            onManual={() => {
+              setShowAddModal(false);
+              navigate("/food");
+            }}
             onFileUpload={handleFileUpload}
           />
         )}
