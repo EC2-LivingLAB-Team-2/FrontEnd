@@ -8,32 +8,21 @@ import "./Refridge.css";
 function AddProductModal({ onClose, onReceipt, onManual, onFileUpload }) {
   const fileInputRef = useRef(null);
 
-  // 버튼 클릭 → input 클릭
-  const handleFileButtonClick = () => {
-    fileInputRef.current.click();
-  };
+  const handleFileButtonClick = () => fileInputRef.current.click();
 
-  // input에서 파일 선택 시 콜백
   const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      onFileUpload(e.target.files[0]);
-    }
+    const file = e.target.files?.[0];
+    if (file) onFileUpload(file);
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
         <h2>상품 추가 방법 선택</h2>
         <div className="modal-btn-group">
-          <button className="modal-btn" onClick={onReceipt}>
-            영수증 인식
-          </button>
-          <button className="modal-btn" onClick={handleFileButtonClick}>
-            영수증 파일 업로드
-          </button>
-          <button className="modal-btn" onClick={onManual}>
-            직접입력
-          </button>
+          <button className="modal-btn" onClick={onReceipt}>영수증 인식</button>
+          <button className="modal-btn" onClick={handleFileButtonClick}>영수증 파일 업로드</button>
+          <button className="modal-btn" onClick={onManual}>직접입력</button>
           <input
             ref={fileInputRef}
             type="file"
@@ -42,9 +31,7 @@ function AddProductModal({ onClose, onReceipt, onManual, onFileUpload }) {
             onChange={handleFileChange}
           />
         </div>
-        <button className="modal-close-btn" onClick={onClose}>
-          닫기
-        </button>
+        <button className="modal-close-btn" onClick={onClose}>닫기</button>
       </div>
     </div>
   );
@@ -63,15 +50,11 @@ function CameraModal({ onClose, onCapture }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
         <h2>영수증 촬영</h2>
         <div style={{ marginBottom: 16 }}>
           {imgSrc ? (
-            <img
-              src={imgSrc}
-              alt="captured"
-              style={{ width: 320, borderRadius: 8 }}
-            />
+            <img src={imgSrc} alt="captured" style={{ width: 320, borderRadius: 8 }} />
           ) : (
             <Webcam
               audio={false}
@@ -84,17 +67,11 @@ function CameraModal({ onClose, onCapture }) {
         </div>
         <div className="modal-btn-group">
           {!imgSrc ? (
-            <button className="modal-btn" onClick={capture}>
-              촬영
-            </button>
+            <button className="modal-btn" onClick={capture}>촬영</button>
           ) : (
-            <button className="modal-btn" onClick={() => setImgSrc(null)}>
-              다시찍기
-            </button>
+            <button className="modal-btn" onClick={() => setImgSrc(null)}>다시찍기</button>
           )}
-          <button className="modal-btn" onClick={onClose}>
-            닫기
-          </button>
+          <button className="modal-btn" onClick={onClose}>닫기</button>
         </div>
       </div>
     </div>
@@ -103,15 +80,12 @@ function CameraModal({ onClose, onCapture }) {
 
 // base64 → Blob 변환 함수
 function base64ToBlob(base64) {
-  const arr = base64.split(",");
-  const mime = arr[0].match(/:(.*?);/)[1];
-  const bstr = atob(arr[1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-  return new Blob([u8arr], { type: mime });
+  const [meta, data] = base64.split(",");
+  const mime = meta.match(/:(.*?);/)[1];
+  const bin = atob(data);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: mime });
 }
 
 const initialData = [
@@ -119,12 +93,7 @@ const initialData = [
     group: "육류",
     items: [
       { id: 1, name: "소고기", image: null, createdAt: "2025-05-09T14:30:00Z" },
-      {
-        id: 2,
-        name: "돼지고기",
-        image: null,
-        createdAt: "2025-05-08T09:15:00Z",
-      },
+      { id: 2, name: "돼지고기", image: null, createdAt: "2025-05-08T09:15:00Z" },
       { id: 3, name: "닭고기", image: null, createdAt: "2025-05-07T18:00:00Z" },
       { id: 4, name: "양고기", image: null, createdAt: "2025-05-06T11:00:00Z" },
       { id: 5, name: "베이컨", image: null, createdAt: "2025-05-05T08:45:00Z" },
@@ -138,38 +107,18 @@ const initialData = [
       { id: 8, name: "마늘", image: null, createdAt: "2025-05-08T13:30:00Z" },
       { id: 9, name: "당근", image: null, createdAt: "2025-05-07T15:20:00Z" },
       { id: 10, name: "감자", image: null, createdAt: "2025-05-06T17:00:00Z" },
-      {
-        id: 11,
-        name: "파프리카",
-        image: null,
-        createdAt: "2025-05-05T09:00:00Z",
-      },
-      {
-        id: 12,
-        name: "브로콜리",
-        image: null,
-        createdAt: "2025-05-04T19:00:00Z",
-      },
+      { id: 11, name: "파프리카", image: null, createdAt: "2025-05-05T09:00:00Z" },
+      { id: 12, name: "브로콜리", image: null, createdAt: "2025-05-04T19:00:00Z" },
     ],
   },
   {
     group: "과일",
     items: [
       { id: 13, name: "사과", image: null, createdAt: "2025-05-09T12:00:00Z" },
-      {
-        id: 14,
-        name: "바나나",
-        image: null,
-        createdAt: "2025-05-08T08:00:00Z",
-      },
+      { id: 14, name: "바나나", image: null, createdAt: "2025-05-08T08:00:00Z" },
       { id: 15, name: "딸기", image: null, createdAt: "2025-05-07T09:30:00Z" },
       { id: 16, name: "포도", image: null, createdAt: "2025-05-06T16:00:00Z" },
-      {
-        id: 17,
-        name: "오렌지",
-        image: null,
-        createdAt: "2025-05-05T10:10:00Z",
-      },
+      { id: 17, name: "오렌지", image: null, createdAt: "2025-05-05T10:10:00Z" },
     ],
   },
   {
@@ -177,12 +126,7 @@ const initialData = [
     items: [
       { id: 18, name: "우유", image: null, createdAt: "2025-05-09T07:00:00Z" },
       { id: 19, name: "치즈", image: null, createdAt: "2025-05-08T11:00:00Z" },
-      {
-        id: 20,
-        name: "요거트",
-        image: null,
-        createdAt: "2025-05-07T20:00:00Z",
-      },
+      { id: 20, name: "요거트", image: null, createdAt: "2025-05-07T20:00:00Z" },
       { id: 21, name: "버터", image: null, createdAt: "2025-05-06T14:00:00Z" },
     ],
   },
@@ -191,12 +135,7 @@ const initialData = [
     items: [
       { id: 22, name: "물", image: null, createdAt: "2025-05-09T08:00:00Z" },
       { id: 23, name: "주스", image: null, createdAt: "2025-05-08T16:00:00Z" },
-      {
-        id: 24,
-        name: "탄산수",
-        image: null,
-        createdAt: "2025-05-07T21:00:00Z",
-      },
+      { id: 24, name: "탄산수", image: null, createdAt: "2025-05-07T21:00:00Z" },
       { id: 25, name: "커피", image: null, createdAt: "2025-05-06T07:00:00Z" },
       { id: 26, name: "커피", image: null, createdAt: "2025-05-05T07:00:00Z" },
       { id: 27, name: "커피", image: null, createdAt: "2025-05-04T07:00:00Z" },
@@ -222,70 +161,52 @@ function Refridge() {
 
   const getSortedGroups = () => {
     if (sort === "최신 순") return [...data].reverse();
-    if (sort === "오래된 순") return data;
     return data;
   };
 
   const getSortedItems = (items) => {
-    if (sort === "최신 순") {
-      return [...items].sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-    }
-    if (sort === "오래된 순") {
-      return [...items].sort(
-        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-      );
-    }
+    if (sort === "최신 순")
+      return [...items].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    if (sort === "오래된 순")
+      return [...items].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
     return items;
   };
 
-  // 영수증 인식 클릭 → 카메라 모달
   const handleReceipt = () => {
     setShowAddModal(false);
     setShowCameraModal(true);
   };
 
-  // 직접입력 클릭
   const handleManual = () => {
     setShowAddModal(false);
     navigate("/self");
   };
 
-  // 카메라에서 이미지 캡처
   const handleCapture = async (imgSrc) => {
     setReceiptImg(imgSrc);
-
-    // base64 → Blob 변환
     const blob = base64ToBlob(imgSrc);
     const formData = new FormData();
     formData.append("image", blob, "receipt.jpg");
-
-    try {
-      const result = await API("/parse-ingredients", "post", formData);
-      alert(
-        "영수증 사진이 촬영·전송되었습니다!\n서버 응답: " +
-          JSON.stringify(result)
-      );
-    } catch (error) {
-      alert("OCR 서버 전송 실패: " + error.message);
-    }
-
-    setShowCameraModal(false);
-  };
-
-  // 파일 업로드 핸들러 (input type="file"에서 호출)
-  const handleFileUpload = async (file) => {
-    const formData = new FormData();
-    formData.append("image", file); // 반드시 "image"로
-
     try {
       const result = await API("/parse-ingredients", "post", formData);
       console.log(result);
-      alert(
-        "영수증 파일이 업로드·전송되었습니다!\n서버 응답: " +
-          JSON.stringify(result)
-      );
+      alert("영수증 사진이 촬영·전송되었습니다!\n서버 응답: " + JSON.stringify(result));
+    } catch (error) {
+      alert("OCR 서버 전송 실패: " + error.message);
+    }
+    setShowCameraModal(false);
+  };
+
+  const handleFileUpload = async (file) => {
+    if (!file) {
+      alert("파일이 선택되지 않았습니다.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      const result = await API("/parse-ingredients", "post", formData);
+      alert("영수증 파일이 업로드·전송되었습니다!\n서버 응답: " + JSON.stringify(result));
     } catch (error) {
       alert("OCR 서버 전송 실패: " + error.message);
     }
@@ -295,10 +216,7 @@ function Refridge() {
     <div className="fridge-bg">
       <div className="fridge-frame">
         <header className="fridge-header">
-          <button
-            className="fridge-top-btn"
-            onClick={() => setShowAddModal(true)}
-          >
+          <button className="fridge-top-btn" onClick={() => setShowAddModal(true)}>
             상품 추가
           </button>
           <h1 className="fridge-title">냉장고</h1>
@@ -309,18 +227,18 @@ function Refridge() {
             <select
               className="fridge-sort-select"
               value={sort}
-              onChange={(e) => setSort(e.target.value)}
+              onChange={e => setSort(e.target.value)}
             >
-              {sortOptions.map((opt) => (
+              {sortOptions.map(opt => (
                 <option key={opt}>{opt}</option>
               ))}
             </select>
           </div>
-          {getSortedGroups().map((group) => (
+          {getSortedGroups().map(group => (
             <section className="fridge-section" key={group.group}>
               <div className="fridge-group-title">{group.group}</div>
               <div className="fridge-items-box">
-                {getSortedItems(group.items).map((item) => (
+                {getSortedItems(group.items).map(item => (
                   <div className="fridge-item" key={item.id}>
                     <div className="fridge-thumb" />
                     <div className="fridge-name">{item.name}</div>

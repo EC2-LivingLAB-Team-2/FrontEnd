@@ -1,14 +1,14 @@
 import axios from "axios";
 
 async function API(endpoint, method, body = null, withCredentials = true) {
-  const API_URL = "https://9bbb-1-216-24-221.ngrok-free.app/api/v1";
+  const API_URL = "https://85ba-1-216-24-221.ngrok-free.app/api/v1";
   let headers = {};
 
-  if (body instanceof FormData) {
-    headers["Content-Type"] = "multipart/form-data";
-  } else {
-    headers["Content-Type"] = "application/json";
-  }
+  // if (body instanceof FormData) {
+  //   headers["Content-Type"] = "multipart/form-data";
+  // } else {
+  //   headers["Content-Type"] = "application/json";
+  // }
 
   const url = `${API_URL}${endpoint}`;
 
@@ -19,8 +19,9 @@ async function API(endpoint, method, body = null, withCredentials = true) {
       data: body,
       headers,
       withCredentials,
-      timeout: 20000,
+      timeout: 60000,
     });
+    console.log("API response:", response.data);
     return response.data;
   } catch (error) {
     console.error("API request error:", error.response || error.message);
