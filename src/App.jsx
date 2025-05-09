@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <div className="App-top">
+        <button className="back-button">돌아가기</button>
+        <h1 className="title">상품 추가</h1>
+        <button className="register-button">등록</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="App-container">
+        <main className="App-main">
+          <div className="product-form">
+            <div className="product-image">
+              <img src="https://via.placeholder.com/100" alt="상품 이미지" />
+            </div>
+            <input
+              type="text"
+              className="product-name-input"
+              placeholder="상품명 추가"
+            />
+            <select className="category-select">
+              <option value="">카테고리 선택</option>
+              <option value="category1">카테고리 1</option>
+              <option value="category2">카테고리 2</option>
+            </select>
+          </div>
+          <button className="add-button">+추가</button>
+        </main>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
