@@ -21,7 +21,7 @@ html, body {
 .App {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #dcd6f7; /* 보라색 배경 */
+  background-color: #D2E6EC; /* 보라색 배경 */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -64,23 +64,30 @@ html, body {
 }
 
 .App-main {
-  width: 110%; /* 본문 박스 더 크게 조정 */
-  max-width: 1100px; /* 최대 크기 증가 */
-  background: linear-gradient(180deg, #fafdff 0%, #e6f0fa 100%); /* 하얀색-파란색 그라데이션 */
-  border-radius: 15px; /* 박스 모서리 더 둥글게 */
-  padding: 50px; /* 여백 추가 */
+  width: 90%; /* 본문 박스 크기 */
+  max-width: 1100px; /* 최대 크기 */
+  height: 600px; /* 고정된 높이 설정 */
+  background: linear-gradient(180deg, #f4f4f4 0%, #f5f5f5 100%);
+  border-radius: 15px; /* 박스 모서리 둥글게 */
+  padding: 20px; /* 내부 여백 */
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* 그림자 강조 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  overflow-x: hidden; /* 가로 스크롤 방지 */
 }
 
 .product-form {
   display: flex;
   align-items: center;
+  justify-content: center; /* 수평 가운데 정렬 */
   gap: 20px; /* 간격을 조금 더 넓게 */
   margin-bottom: 30px;
   color: black; /* 폼 내부 텍스트를 검정색으로 설정 */
+  text-align: center; /* 텍스트 가운데 정렬 */
 }
 
 .product-image img {
+  display: block; /* 이미지를 블록 요소로 설정 */
+  margin: 0 auto; /* 이미지를 수평 가운데 정렬 */
   width: 100px; /* 이미지 너비를 100px로 설정 */
   height: 100px; /* 이미지 높이를 100px로 설정 */
   border-radius: 10px; /* 이미지 모서리를 둥글게 유지 */
@@ -118,4 +125,5 @@ html, body {
   width: 100%; /* 입력 필드와 드롭다운의 너비를 동일하게 설정 */
   max-width: 300px; /* 최대 너비를 동일하게 설정 */
   box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
+  text-align: center; /* 입력 필드와 드롭다운 텍스트 가운데 정렬 */
 }
