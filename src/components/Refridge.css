@@ -1,13 +1,15 @@
 .fridge-bg {
   width: 100vw;
   height: 100vh;
-  /* background: linear-gradient(135deg, #dbe6f6, #c5796d 100%); */
+  background: #cfd7fa;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  min-height: 100vh;
 }
-
 .fridge-frame {
+  top: 30px;
   width: 90vw;
   max-width: 1200px;
   background: #eaf3fb;
@@ -15,6 +17,7 @@
   box-shadow: 0 0 0 8px #dde3ef, 0 2px 16px #b5b8c5;
   padding: 32px 32px 40px 32px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .fridge-header {
@@ -57,7 +60,7 @@
 
 .fridge-sort-box {
   position: absolute;
-  top: 32px;
+  top: 20px;
   right: 32px;
 }
 
@@ -83,6 +86,8 @@
 
 .fridge-items-box {
   display: flex;
+  flex-wrap: nowrap; /* 줄바꿈 없이 한 줄에 나열 */
+  overflow-x: auto; /* 가로 스크롤 활성화 */
   gap: 36px;
   background: #fff;
   border-radius: 16px;
@@ -91,6 +96,21 @@
   margin-bottom: 12px;
   box-sizing: border-box;
   align-items: flex-start;
+  scrollbar-color: #bdbdbd #fafdff; /* Firefox용 */
+  scrollbar-width: thin; /* Firefox용 */
+}
+
+/* Webkit(크롬, 사파리)용 스크롤바 스타일 */
+.fridge-items-box::-webkit-scrollbar {
+  height: 10px;
+}
+.fridge-items-box::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 5px;
+}
+.fridge-items-box::-webkit-scrollbar-track {
+  background: #fafdff;
+  border-radius: 5px;
 }
 
 .fridge-item {
@@ -117,8 +137,11 @@
 /* 모달 스타일 */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.3);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,7 +152,7 @@
   background: #fff;
   border-radius: 18px;
   padding: 36px 32px 24px 32px;
-  box-shadow: 0 8px 32px rgba(80,80,120,0.18);
+  box-shadow: 0 8px 32px rgba(80, 80, 120, 0.18);
   text-align: center;
   min-width: 320px;
 }
@@ -172,7 +195,7 @@
   background: #fff;
   border-radius: 18px;
   padding: 36px 32px 24px 32px;
-  box-shadow: 0 8px 32px rgba(80,80,120,0.18);
+  box-shadow: 0 8px 32px rgba(80, 80, 120, 0.18);
   text-align: center;
   min-width: 320px;
   overflow: visible;
