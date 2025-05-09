@@ -104,7 +104,7 @@
   box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
   text-align: center; /* 입력 필드와 드롭다운 텍스트 가운데 정렬 */
 }
-=======
+
 /* 전체 페이지 설정 */
 html, body {
   height: 100vh;
