@@ -46,12 +46,12 @@ html, body {
 
 .back-button,
 .register-button {
-  background-color: #d3d3d3;
+  background-color: #f7e9e4;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  color: black; /* 버튼 텍스트를 검정색으로 설정 */
+  color: #776a77; /* 버튼 텍스트를 검정색으로 설정 */
 }
 
 .App-container {
@@ -106,7 +106,7 @@ html, body {
 }
 
 .add-button {
-  background-color: #d3d3d3;
+  background-color: #c5e1de;
   border: none;
   padding: 14px 30px;
   border-radius: 5px;
