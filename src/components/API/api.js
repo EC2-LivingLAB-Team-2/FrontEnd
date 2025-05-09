@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function API(endpoint, method, body = null, withCredentials = true) {
-  const API_URL = "https://85ba-1-216-24-221.ngrok-free.app/api/v1";
+  const API_URL = "https://6c89-1-216-24-222.ngrok-free.app/api/v1";
   let headers = {};
 
   // if (body instanceof FormData) {
@@ -19,7 +19,7 @@ async function API(endpoint, method, body = null, withCredentials = true) {
       data: body,
       headers,
       withCredentials,
-      timeout: 60000,
+      timeout: 600000,
     });
     console.log("API response:", response.data);
     return response.data;
